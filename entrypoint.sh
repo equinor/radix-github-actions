@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sh -c "rx $*"
+sh -c "echo $1 | rx --token-stdin $*"
