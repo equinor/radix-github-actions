@@ -4,7 +4,7 @@ This Action for [Radix CLI](https://github.com/equinor/radix-cli) to integrate w
 
 ## Usage
 
-This Action can be used to run any `rx` command. 
+This Action can be used to run any `rx` command
 
 ## License
 
