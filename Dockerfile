@@ -1,6 +1,9 @@
-# FROM docker.pkg.github.com/equinor/radix-cli/rx:latest
-FROM ingeknudsen/rx
+FROM alpine
+
+RUN echo "Version 0.0.10 of Radix CLI"
+COPY install_radix_cli.sh install_radix_cli.sh
+RUN sh install_radix_cli.sh
 
 COPY entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["sh","/entrypoint.sh"]
