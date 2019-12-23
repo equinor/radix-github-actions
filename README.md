@@ -36,7 +36,7 @@ Examples:
   env:
     APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.<the name of your secret holding token> }}
   with:
-    args: "list applications --cluster <cluster-name> --environment <api-environment>"
+    args: "list applications --cluster <cluster-name> --api-environment <api-environment>"
 ```
 
 ## License
