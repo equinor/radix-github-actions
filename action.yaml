@@ -1,8 +1,5 @@
 name: 'Radix Actions'
 description: 'Wrapper for Radix CLI commands'
-outputs:
-  result:
-    description: 'Result of command'
 runs:
   using: 'docker'
   image: 'Dockerfile'
