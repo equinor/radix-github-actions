@@ -1,5 +1,7 @@
 # GitHub Action for Radix CLI
 
+NOTE: This project is currently a work in progress prototype
+
 This Action for [Radix CLI](https://github.com/equinor/radix-cli) to integrate with the Radix platform from a github action workflow.
 
 ## Outputs
