@@ -21,41 +21,32 @@ This Action can be used to run any `rx` command. The run make some assumptions:
 Examples:
 
 ```yaml
-- name: Build and deploy API on Radix
+- name: Deploy on Radix
   uses: equinor/radix-github-actions@master
   with:
     args: >
-      build-deploy
-      -b ${GITHUB_REF##*/}
+      trigger
+      deploy
+      --context development
+      -e ${{ steps.getEnvironment.outputs.result }}
       -f
 ```
 
 `-f` will ensure that the action step is followed, and won't continue until step is complete.
 
 ```yaml
-- name: Build and deploy API on Radix
+- name: Deploy on Radix
   uses: equinor/radix-github-actions@master
   with:
     args: >
-      build-deploy
+      trigger
+      deploy
       --context playground
-      -b ${GITHUB_REF##*/}
+      -e ${{ steps.getEnvironment.outputs.result }}
       -f
 ```
 
 `--context playground` will communicate with playground cluster, if your application resides there.
-
-```yaml
-- name: List Radix apps in custom cluster
-  uses: equinor/radix-github-actions@master
-  env:
-    APP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.<the name of your secret holding token> }}
-  with:
-    args: >
-      list applications
-      --cluster <cluster-name>
-      --api-environment <api-environment>
-```
 
 ```yaml
 - name: Set component environment secret
