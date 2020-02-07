@@ -27,7 +27,6 @@ Examples:
     args: >
       trigger
       deploy
-      --context development
       -e ${{ steps.getEnvironment.outputs.result }}
       -f
 ```
