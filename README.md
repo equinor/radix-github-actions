@@ -27,6 +27,7 @@ Examples:
     args: >
       trigger
       deploy
+      -a application-name
       -e ${{ steps.getEnvironment.outputs.result }}
       -f
 ```
@@ -41,6 +42,21 @@ Examples:
       trigger
       deploy
       --context playground
+      -a application-name
+      -e ${{ steps.getEnvironment.outputs.result }}
+      -f
+```
+
+`--from-config` will read information such as application-name, context/cluster etc from your radixconfig.yaml
+
+```yaml
+- name: Deploy on radix
+  uses: equinor/radix-github-actions@master
+  with:
+    args: >
+      trigger
+      deploy
+      --from-config
       -e ${{ steps.getEnvironment.outputs.result }}
       -f
 ```
@@ -66,6 +82,7 @@ Examples:
   with:
     args: >
       get-config branch-environment
+      --from-config
       -b ${GITHUB_REF##*/}
 - name: Print the environment
   run: echo "${{ steps.getEnvironment.outputs.result }}"
