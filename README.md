@@ -25,7 +25,7 @@ Examples:
   uses: equinor/radix-github-actions@master
   with:
     args: >
-      trigger
+      create job
       deploy
       -a application-name
       -e ${{ steps.getEnvironment.outputs.result }}
@@ -39,7 +39,7 @@ Examples:
   uses: equinor/radix-github-actions@master
   with:
     args: >
-      trigger
+      create job
       deploy
       --context playground
       -a application-name
@@ -54,7 +54,7 @@ Examples:
   uses: equinor/radix-github-actions@master
   with:
     args: >
-      trigger
+      create job
       deploy
       --from-config
       -e ${{ steps.getEnvironment.outputs.result }}
