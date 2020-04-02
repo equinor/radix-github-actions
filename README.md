@@ -14,7 +14,6 @@ The standard output from execution of the `rx` command.
 
 This Action can be used to run any `rx` command. The run make some assumptions:
 
-- There is a Radix config file in the repository that it can use as input (--from-config in radix-cli is set as argument on the action)
 - There is a defined environment variable set `APP_SERVICE_ACCOUNT_TOKEN`, with the token of the service account provided to administer the application. The environment variable can be set on a single step or on the entire flow.
 - The service account token will only have access to single application in a single cluster/context, and will be provided in the Radix web console
 
@@ -47,7 +46,7 @@ Examples:
       -f
 ```
 
-`--from-config` will read information such as application-name, context/cluster etc from your radixconfig.yaml
+`--from-config` will read information such as application-name, branch mapping etc from your radixconfig.yaml
 
 ```yaml
 - name: Deploy on radix
@@ -69,6 +68,7 @@ Examples:
   with:
     args: >
       set environment-secret
+      --from-config
       -e <your environment name>
       --component <your component name>
       -s <your secret name>
