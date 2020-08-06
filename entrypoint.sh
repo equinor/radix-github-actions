@@ -1,8 +1,11 @@
 #!/bin/bash
 sh -c "rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt
 result=$(cat result.txt)
-echo "Resultat kopiert til variabel fra fil"
 rm -f result.txt
+
+echo "-----------------------------------------"
+echo "$result"
+echo "-----------------------------------------"
 
 if [[ "$result" == *"Error"* ]]; then
     echo "Dette er en test på at det virker"
