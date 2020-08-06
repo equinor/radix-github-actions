@@ -3,11 +3,7 @@ sh -c "rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt
 result=$(cat result.txt)
 rm -f result.txt
 
-echo "-----------------------------------------"
-echo "$result"
-echo "-----------------------------------------"
-
-if [[ "$result" == *"Error"* ]]; then
+if [[ "$result" =~ "Error" ]]; then
     echo "Dette er en test på at det virker"
     exit 1
 fi
