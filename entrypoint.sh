@@ -1,6 +1,6 @@
 #!/bin/bash
-echo "Kaller radix-cli med parametre"
 sh -c "rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt
+echo "Kopierer resultat til variabel"
 result=$(cat result.txt)
 rm -f result.txt
 
