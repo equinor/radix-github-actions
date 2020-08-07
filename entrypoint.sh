@@ -5,8 +5,9 @@ set -e
 sh -c "rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt
 
 echo "Obtain exit code"
+echo "Exit code is ${PIPESTATUS[0]}"
 EXIT_CODE=${PIPESTATUS[0]}
-echo "Exit code is $EXIT_CODE"
+echo "Obtained exit code"
 
 if [[ $((EXIT_CODE)) != 0 ]]; then
     exit $((EXIT_CODE))
