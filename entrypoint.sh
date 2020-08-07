@@ -2,7 +2,7 @@
 #!/bin/bash
 set -e
 
-sh -c "rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt
+sh -c '"rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt ; echo ${PIPESTATUS[0]}'
 
 echo "Obtain exit code"
 echo "Exit code is ${PIPESTATUS}"
