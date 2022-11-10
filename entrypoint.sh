@@ -16,4 +16,4 @@ fi
 result=$(cat result.txt)
 rm -f result.txt
 
-echo ::set-output name=result::$result
+run: echo "{name}={value}" >> $GITHUB_OUTPUT
