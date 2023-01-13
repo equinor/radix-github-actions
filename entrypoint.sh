@@ -8,4 +8,4 @@ case "$result" in *"Error: Radix CLI executed with error"*)
     ;;
 esac
 
-echo ::set-output name=result::$result
+echo result=$result >> $GITHUB_OUTPUT
