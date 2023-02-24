@@ -1,8 +1,6 @@
 # GitHub Action for Radix CLI
 
-NOTE: This project is currently a work in progress prototype
-
-This Action for [Radix CLI](https://github.com/equinor/radix-cli) to integrate with the Radix platform from a github action workflow.
+This Action for [Radix CLI](https://github.com/equinor/radix-cli) to integrate with the Radix platform from a GitHub Action workflow.
 
 ## Outputs
 
@@ -14,8 +12,9 @@ The standard output from execution of the `rx` command.
 
 This Action can be used to run any `rx` command. The run make some assumptions:
 
-- There is a defined environment variable set `APP_SERVICE_ACCOUNT_TOKEN`, with the token of the service account provided to administer the application. The environment variable can be set on a single step or on the entire flow.
-- The service account token will only have access to single application in a single cluster/context, and will be provided in the Radix web console
+- An environment variable with the `APP_SERVICE_ACCOUNT_TOKEN` is available to the app, and this token belongs to a user or service principal who has the appropriate privileges for the operations you want to execute in the Radix cluster. [See our documentation](https://www.radix.equinor.com/guides/deploy-only/example-github-action-using-ad-service-principal-access-token.html#example-of-using-ad-service-principal-to-get-access-to-a-radix-application-in-a-github-action) for example on how to acquire such a token in a GitHub Actions workflow. The environment variable can be set on a single step or on the entire flow.
+
+All of the examples below pass the `github-token` argument to the Action. Passing this argument is optional. The caveat of *not* passing this argument is that it gets more likely that the workflow fails because the hourly GitHub API rate limit have been exahausted. The Action uses to GitHub API to determine the most recent version of the `rx` CLI.
 
 Examples:
 
@@ -23,6 +22,7 @@ Examples:
 - name: Deploy on Radix
   uses: equinor/radix-github-actions@master
   with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
       create job
       deploy
@@ -37,6 +37,7 @@ Examples:
 - name: Deploy on Radix
   uses: equinor/radix-github-actions@master
   with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
       create job
       deploy
@@ -52,6 +53,7 @@ Examples:
 - name: Deploy on radix
   uses: equinor/radix-github-actions@master
   with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
       create job
       deploy
@@ -66,6 +68,7 @@ Examples:
 - name: Set component environment secret
   uses: equinor/radix-github-actions@master
   with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
       set environment-secret
       --from-config
@@ -80,6 +83,7 @@ Examples:
   id: getEnvironment
   uses: equinor/radix-github-actions@master
   with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
       get-config branch-environment
       --from-config
