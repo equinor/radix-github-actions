@@ -14,13 +14,13 @@ This Action can be used to run any `rx` command. The run make some assumptions:
 
 - An environment variable with the `APP_SERVICE_ACCOUNT_TOKEN` is available to the app, and this token belongs to a user or service principal who has the appropriate privileges for the operations you want to execute in the Radix cluster. [See our documentation](https://www.radix.equinor.com/guides/deploy-only/example-github-action-using-ad-service-principal-access-token.html#example-of-using-ad-service-principal-to-get-access-to-a-radix-application-in-a-github-action) for example on how to acquire such a token in a GitHub Actions workflow. The environment variable can be set on a single step or on the entire flow.
 
-All of the examples below pass the `github-token` argument to the Action. Passing this argument is optional. The caveat of *not* passing this argument is that it gets more likely that the workflow fails because the hourly GitHub API rate limit has been exhausted. The Action uses to GitHub API to determine the most recent version of the `rx` CLI.
+All the examples below pass the `github-token` argument to the Action. Passing this argument is optional. The caveat of *not* passing this argument is that it gets more likely that the workflow fails because the hourly GitHub API rate limit has been exhausted. The Action uses to GitHub API to determine the most recent version of the `rx` CLI.
 
 Examples:
 
 ```yaml
 - name: Deploy on Radix
-  uses: equinor/radix-github-actions@master
+  uses: equinor/radix-github-actions@v1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
@@ -35,7 +35,7 @@ Examples:
 
 ```yaml
 - name: Deploy on Radix
-  uses: equinor/radix-github-actions@master
+  uses: equinor/radix-github-actions@v1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
@@ -51,7 +51,7 @@ Examples:
 
 ```yaml
 - name: Deploy on radix
-  uses: equinor/radix-github-actions@master
+  uses: equinor/radix-github-actions@v1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
@@ -66,7 +66,7 @@ Examples:
 
 ```yaml
 - name: Set component environment secret
-  uses: equinor/radix-github-actions@master
+  uses: equinor/radix-github-actions@v1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
@@ -81,7 +81,7 @@ Examples:
 ```yaml
 - name: Get environment from branch mapping in Radix config for repository
   id: getEnvironment
-  uses: equinor/radix-github-actions@master
+  uses: equinor/radix-github-actions@v1
   with:
     github-token: ${{ secrets.GITHUB_TOKEN }}
     args: >
