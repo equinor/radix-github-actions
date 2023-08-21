@@ -1,5 +1,7 @@
 /install_radix_cli.sh
-echo 'show all args ----------------------------'
-echo $*
-echo 'start rx command ----------------------------'
-rx $* --token-environment --verbose 2>&1
+
+if [[ "$*" == *"--token-environment"* ]]; then
+    rx $* 2>&1
+else
+    rx $* --token-environment 2>&1
+fi
