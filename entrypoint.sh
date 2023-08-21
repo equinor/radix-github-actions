@@ -1,3 +1,3 @@
 /install_radix_cli.sh
 echo $*
-rx $* --token-environment 2>&1
+rx $* --token-environment --verbose 2>&1
