@@ -1,13 +1,7 @@
-/install_radix_cli.sh "$github_token"
-sh -c "rx --token-environment --await-reconcile $*" 2>&1 | tee result.txt
-result=$(cat result.txt)
+/install_radix_cli.sh
 
-case "$result" in *"Error: Radix CLI executed with error"*)
-    exit 1
-    ;;
-esac
-
-echo "result<<EOF" >> $GITHUB_OUTPUT
-cat result.txt >> $GITHUB_OUTPUT
-printf "\nEOF" >> $GITHUB_OUTPUT
-rm -f result.txt
+if [[ "$*" == *"--token-environment"* ]]; then
+    rx $* 2>&1
+else
+    rx $* --token-environment 2>&1
+fi
