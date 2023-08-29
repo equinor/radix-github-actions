@@ -14,6 +14,8 @@ else
   sh -c "rx $extended_options 2>&1" | tee result.txt
 fi
 
+exit_code=$?
+
 result=$(cat result.txt)
 
 if [[ "$GITHUB_OUTPUT" == "" ]]; then
@@ -25,3 +27,6 @@ else
   printf "\nEOF" >> $GITHUB_OUTPUT
   rm -f result.txt
 fi
+
+echo "exit code: $exit_code"
+exit $exit_code
