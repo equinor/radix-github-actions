@@ -11,7 +11,9 @@ exit_code=$?
 result=$(cat result.txt)
 
 if [[ "$GITHUB_OUTPUT" == "" ]]; then
+  echo "no env-var GITHUB_OUTPUT, print result to stdout"
   cat result.txt
+  echo "exit code $exit_code"
   exit $exit_code
 fi
 
@@ -20,4 +22,5 @@ cat result.txt >> $GITHUB_OUTPUT
 printf "\nEOF" >> $GITHUB_OUTPUT
 rm -f result.txt
 
+echo "exit code $exit_code"
 exit $exit_code
