@@ -1,9 +1,14 @@
 /install_radix_cli.sh
 
+if [[ "$APP_SERVICE_ACCOUNT_TOKEN" == "" ]]; then
+  echo "no env-var APP_SERVICE_ACCOUNT_TOKEN, exiting"
+  exit 1
+fi
+
 if [[ "$*" == *"--token-environment"* ]]; then
   sh -c "rx $* 2>&1" > result.txt
 else
-  extended_options="--token-environment $*"
+  extended_options=" $* --token-environment "
   sh -c "rx $extended_options 2>&1" > result.txt
 fi
 exit_code=$?
