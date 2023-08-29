@@ -7,5 +7,5 @@ ls radix-cli_*_Linux_x86_64.tar.gz >/dev/null 2>&1 || {
     apk add --update curl
     wget https://github.com/equinor/radix-cli/releases/download/v${VERSION}/radix-cli_${VERSION}_Linux_x86_64.tar.gz
   }
-tar zxvf $(readlink -f radix-cli_*_Linux_x86_64.tar.gz)
+tar zxvf $(readlink -f radix-cli_*_Linux_x86_64.tar.gz) 1>/dev/null
 mv rx /usr/local/bin
