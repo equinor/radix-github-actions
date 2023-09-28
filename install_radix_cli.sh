@@ -1,5 +1,5 @@
 #!/bin/sh
-VERSION="1.8.0"
+VERSION="1.8.1"
 
 # this action may be run in consecutive steps in same workflow. To avoid duplicate downloads, we check
 # if the rx cli tar file already exists
