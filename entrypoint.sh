@@ -1,5 +1,3 @@
-/install_radix_cli.sh
-
 if [[ "$APP_SERVICE_ACCOUNT_TOKEN" == "" ]]; then
   echo "no env-var APP_SERVICE_ACCOUNT_TOKEN, exiting"
   exit 1
