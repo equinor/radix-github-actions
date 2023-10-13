@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        required: true
+        default: "1.9.3"
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy:
+    name: Modifiy repository files
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Parse SemVer
+        id: semver
+        run: |
+          VERSION="${{inputs.semver}}"
+          VERSION="${VERSION#[vV]}"
+          VERSION_MAJOR="${VERSION%%\.*}"
+          VERSION_MINOR="${VERSION#*.}"
+          VERSION_MINOR="${VERSION_MINOR%.*}"
+          VERSION_PATCH="${VERSION##*.}"
+
+          echo "Version: ${VERSION}"
+          echo "Version [major]: ${VERSION_MAJOR}"
+          echo "Version [minor]: ${VERSION_MINOR}"
+          echo "Version [patch]: ${VERSION_PATCH}"
+  
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "major=${VERSION_MAJOR}" >> "$GITHUB_OUTPUT"
+          echo "minor=${VERSION_MINOR}" >> "$GITHUB_OUTPUT"
+          echo "patch=${VERSION_PATCH}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate semver
+        run: |
+            echo "Version: $SEMVER"
+            if [[ $SEMVER =~ ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$ ]]; then echo "success" && exit 0; fi;
+            
+            echo "failed"
+            exit 1
+        env:
+          SEMVER: ${{steps.semver.outputs.version}}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Update Dockerfile
+        run: |
+          sed -i 's/ARG RX_VERSION=.*/ARG RX_VERSION="${{steps.semver.outputs.major}}.${{steps.semver.outputs.minor}}.${{steps.semver.outputs.patch}}"/' Dockerfile
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          delete-branch: true
+          title: Update Action with Radix-Cli ${{steps.semver.outputs.version}}
+          reviewers: ${{ github.actor }}
