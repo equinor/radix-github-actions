@@ -50,6 +50,8 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          repository: equinor/radix-github-actions
 
       - name: Update Dockerfile
         run: |
