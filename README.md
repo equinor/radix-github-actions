@@ -92,6 +92,10 @@ Examples:
   run: echo "${{ steps.getEnvironment.outputs.result }}"
 ```
 
+## Release
+
+Triger the CI workflow and set the semver option to the correct version (must be a valid semver with `Major.Minor.Patch` format). This will modify the `Dockerfile` and create a new pull-request for you to approve. You can also run this locally in the repository with `gh workflow run cicd.yaml --repository github.com/equinor/radix-github-actions --field semver=v1.X.X`
+
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
