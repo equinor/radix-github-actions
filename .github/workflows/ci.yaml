@@ -41,7 +41,7 @@ jobs:
       - name: Validate semver
         run: |
             echo "Version: $SEMVER"
-            if [[ $SEMVER =~ ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$ ]]; then echo "success" && exit 0; fi;
+            if [[ $SEMVER =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then echo "success" && exit 0; fi;
             
             echo "failed"
             exit 1
