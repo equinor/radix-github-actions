@@ -1,4 +1,4 @@
-name: CD
+name: Step 2 - Tag commit with new version
 
 on:
   push:
@@ -62,4 +62,4 @@ jobs:
           git tag v${{steps.semver.outputs.major}}
           git tag v${{steps.semver.outputs.major}}.${{steps.semver.outputs.minor}}.${{steps.semver.outputs.patch}}
           git push origin v${{steps.semver.outputs.major}} --force
-          git push origin v${{steps.semver.outputs.major}}.${{steps.semver.outputs.minor}}.${{steps.semver.outputs.patch}}
+          git push origin v${{steps.semver.outputs.major}}.${{steps.semver.outputs.minor}}.${{steps.semver.outputs.patch}} --force

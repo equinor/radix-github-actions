@@ -1,4 +1,4 @@
-name: CI
+name: Step 1 - Create pull requets with new version
 
 on:
   workflow_dispatch:
