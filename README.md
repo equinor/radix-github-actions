@@ -92,6 +92,19 @@ Examples:
   run: echo "${{ steps.getEnvironment.outputs.result }}"
 ```
 
+## Release
+
+Triger the CI workflow and set the semver option to the correct version (must be a valid semver with `Major.Minor.Patch` format). The GitHub Workflow modifies the `Dockerfile` with the updated RX_VERSION set to your `semver` and create a new pull-request for you to approve.
+ You can also run this locally in the repository with `gh workflow run cicd.yaml --repository github.com/equinor/radix-github-actions --field semver=v1.X.X`
+
+1. Release Radix-Cli 1.11.0
+2. Trigger `ci.ymal` Action 1.11.0
+   - Modifies Dockerfile with the new RX_VERSION.
+   - Creates a new branch and a PR
+3. Testing: run a test-workflow with eg. equinor/radix-github-action@update-rx-version-1-x-x
+4. Manually Merge PR
+5. The workflow `cd.yaml` will parse `RX_VERSION` from the `Dockerfile` and create/update the relevant tags.
+
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
