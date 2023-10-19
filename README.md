@@ -96,7 +96,7 @@ Examples:
 
 Triger `Step 1 - Create pull requets with new version` workflow and set the semver option to the correct version (must be a valid semver with `Major.Minor.Patch` format). 
 The GitHub Workflow modifies the `Dockerfile` with the updated `RX_VERSION` set to your `semver` and create a new pull-request for you to approve.
-You can also run this locally in the repository with `gh workflow run ci-step1.yaml --repository github.com/equinor/radix-github-actions --field semver=v1.X.X`
+You can also run this locally in the repository with `gh workflow run ci-step1.yaml --repository github.com/equinor/radix-github-actions --field semver=1.X.X`
 
 1. Release Radix-Cli 1.11.0
 2. Trigger `ci.ymal` Action 1.11.0
