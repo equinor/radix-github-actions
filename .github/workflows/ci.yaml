@@ -5,7 +5,7 @@ on:
     inputs:
       semver:
         required: true
-        default: "1.9.3"
+        description: "Valid semver, eg. '1.9.3'"
         type: string
 
 permissions:
