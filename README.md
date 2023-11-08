@@ -2,6 +2,10 @@
 
 This Action for [Radix CLI](https://github.com/equinor/radix-cli) to integrate with the Radix platform from a GitHub Action workflow.
 
+## Contribution
+
+Want to contribute? Read our [contributing guidelines](./CONTRIBUTING.md)
+
 ## Outputs
 
 ### `result`
@@ -109,3 +113,7 @@ You can also run this locally in the repository with `gh workflow run ci-step1.y
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [MIT License](LICENSE).
+
+## Security
+
+This is how we handle [security issues](./SECURITY.md)
