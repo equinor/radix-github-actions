@@ -5,12 +5,14 @@ inputs:
     description: 'The GITHUB_TOKEN from the workflow which is executing this Action. Necessary to avoid GitHub API rate limits.'
   args:
     description: 'Radix CLI arguments'
-    required: true
 outputs:
   result:
     description: 'Result of command'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - >-
+      ${{ input.args }}
   env:
     github_token: ${{ inputs.github-token }}
