@@ -1,5 +1,6 @@
 name: 'Radix Actions'
 description: 'Wrapper for Radix CLI commands'
+args:
 inputs:
   github-token:
     description: 'The GITHUB_TOKEN from the workflow which is executing this Action. Necessary to avoid GitHub API rate limits.'
