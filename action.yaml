@@ -3,6 +3,7 @@ description: 'Wrapper for Radix CLI commands'
 inputs:
   args:
     description: Radix CLI arguments
+    required: false
   github-token:
     description: 'The GITHUB_TOKEN from the workflow which is executing this Action. Necessary to avoid GitHub API rate limits.'
 outputs:
