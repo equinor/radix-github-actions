@@ -4,6 +4,9 @@ if [[ "$APP_SERVICE_ACCOUNT_TOKEN" == "" ]]; then
 fi
 
 set -o pipefail
+printf "print args--\n"
+printf $*
+printf "--end print args\n"
 
 # if [[ "$*" == *"--token-environment"* ]]; then
   sh -c "rx $* 2>&1" | tee result.txt

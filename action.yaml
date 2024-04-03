@@ -3,7 +3,7 @@ description: 'Wrapper for Radix CLI commands'
 inputs:
   github-token:
     description: 'The GITHUB_TOKEN from the workflow which is executing this Action. Necessary to avoid GitHub API rate limits.'
-  args2:
+  args:
     description: 'Radix CLI arguments'
 outputs:
   result:
@@ -12,6 +12,6 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.args2 }} --token-environment
+    - ${{ inputs.args }} --token-environment
   env:
     github_token: ${{ inputs.github-token }}
