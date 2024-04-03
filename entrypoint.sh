@@ -8,12 +8,12 @@ printf "print args--\n"
 printf $*
 printf "--end print args\n"
 
-# if [[ "$*" == *"--token-environment"* ]]; then
+if [[ "$*" == *"--token-environment"* ]]; then
   sh -c "rx $* 2>&1" | tee result.txt
-# else
-#   extended_options=" $* --token-environment "
-#   sh -c "rx $extended_options 2>&1" | tee result.txt
-# fi
+else
+  extended_options=" $* --token-environment "
+  sh -c "rx $extended_options 2>&1" | tee result.txt
+fi
 
 exit_code=$?
 
