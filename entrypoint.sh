@@ -11,6 +11,7 @@ echo "$*"
 printf "--end print args\n"
 
 if [[ "$*" == *"--token-environment"* ]]; then
+  echo "contains --token-environment"
   sh -c "rx $* 2>&1" | tee result.txt
 else
   extended_options=" $* --token-environment "
