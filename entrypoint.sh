@@ -14,6 +14,7 @@ if [[ "$*" == *"--token-environment"* ]]; then
   echo "contains --token-environment"
   sh -c "rx $* 2>&1" | tee result.txt
 else
+  echo "does not contain --token-environment"
   extended_options=" $* --token-environment "
   echo "$extended_options"
   sh -c "rx $extended_options 2>&1" | tee result.txt
