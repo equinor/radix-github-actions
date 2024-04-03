@@ -11,7 +11,7 @@ outputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.args }} --token-environment
+  # args:
+  #   - ${{ inputs.args }} --token-environment
   env:
     github_token: ${{ inputs.github-token }}
