@@ -5,8 +5,9 @@ fi
 
 set -o pipefail
 printf "print args--\n"
-printf $*
+printf " $* "
 printf $#
+echo " $* "
 printf "--end print args\n"
 
 if [[ "$*" == *"--token-environment"* ]]; then
