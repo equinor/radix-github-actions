@@ -8,6 +8,8 @@ printf "print args--\n"
 printf "$*"
 printf $#
 echo "$*"
+echo "quoted"
+echo "$@"
 printf "--end print args\n"
 
 if [[ "$*" == *"--token-environment"* ]]; then
