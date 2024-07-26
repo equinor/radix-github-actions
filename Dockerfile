@@ -1,4 +1,4 @@
-ARG RX_VERSION="1.19.1"
+ARG RX_VERSION="1.19.2"
 FROM ghcr.io/equinor/radix/rx:${RX_VERSION} as builder
 
 FROM alpine:3
