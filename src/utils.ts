@@ -69,8 +69,7 @@ function getRadixType() {
         case "ia32":
             return "i386";
         default:
-            throw new Error(`Unexpected OS '${os.arch()}'`);
-    }
+            throw new Error(`Unexpected architecture '${os.arch()}'`);
 }
 
 export async function installRx(version: string, filename: string) {
