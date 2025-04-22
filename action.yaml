@@ -5,7 +5,7 @@ inputs:
     description: 'Default is latest. Select the version of the Radix CLI (rx) to install.'
     required: false
   azure_client_id:
-    description: 'Unless authenticate is set to false, this is requried and must be the Application(client) ID of the Azure Managed Identity, or the Azure App Registration to authenticate with.'
+    description: 'Unless authenticate is set to false, this is required and must be the Application(client) ID of the Azure Managed Identity, or the Azure App Registration to authenticate with.'
     required: false
   azure_client_secret:
     description: ' If set use this instead of Github Workload Identity (Github Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). '
