@@ -11,7 +11,7 @@ async function run() {
         rxUrl,
         azureClientId,
         githubAuth,
-        azureClientSecret: azureClientSecret ? "configured" : "empty",
+        azureClientSecret: azureClientSecret ? "<REMOVED>" : "",
     });
     await installRx(version, rxUrl);
 

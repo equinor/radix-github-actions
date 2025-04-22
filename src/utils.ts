@@ -103,5 +103,5 @@ export async function getOptions() {
     const azureClientId = core.getInput("azure_client_id");
     const azureClientSecret = core.getInput("azure_client_secret");
     const githubAuth = !skipAuth && !azureClientSecret;
-    return {version, authenticate: !skipAuth, azureClientId, azureClientSecret, githubAuth};
+    return {version, authenticate: !skipAuth && azureClientId, azureClientId, azureClientSecret, githubAuth};
 }
