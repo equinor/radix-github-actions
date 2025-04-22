@@ -30,7 +30,7 @@ async function run() {
 
 	if (authenticate) {
 		if (azureClientSecret) {
-			console.log("Authenticate with Azure Cient ID and secret");
+			console.log("Authenticate with Azure Client ID and secret");
 			await exec.exec("rx", [
 				"login",
 				"--azure-client-id",
