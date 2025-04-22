@@ -28,8 +28,8 @@
 	},
 	"devDependencies": {
 		"@types/node": "^20.11.1",
-		"typescript": "^5.2.2",
-		"@vercel/ncc": "^0.38.3"
+		"@vercel/ncc": "^0.38.3",
+		"typescript": "^5.2.2"
 	},
 	"homepage": "https://github.com/equinor/radix-github-actions#readme"
 }

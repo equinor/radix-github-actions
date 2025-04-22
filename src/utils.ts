@@ -87,3 +87,21 @@ export async function installRx(version: string, filename: string) {
     }
     core.addPath(rxDir);
 }
+
+
+export async function getOptions() {
+    let version = core.getInput("version");
+    if (version.toLowerCase() === "latest" || version === "") {
+        version = await getLatestVersion();
+    }
+
+    let skipAuth = false;
+    if (core.getInput("skip_authenticate") !== "") {
+        skipAuth = core.getBooleanInput("skip_authenticate");
+    }
+
+    const azureClientId = core.getInput("azure_client_id");
+    const azureClientSecret = core.getInput("azure_client_secret");
+    const githubAuth = !skipAuth && !azureClientSecret;
+    return {version, authenticate: !skipAuth, azureClientId, azureClientSecret, githubAuth};
+}
