@@ -1,10 +1,10 @@
-import exec from "@actions/exec";
+import * as exec from "@actions/exec";
 
 async function cleanup() {
-	await exec.exec("rx", ["logout"]);
+    await exec.exec("rx", ["logout"]);
 }
 
 cleanup().catch((e) => {
-	console.error(e);
-	process.exit(1);
+    console.error(e);
+    process.exit(1);
 });
