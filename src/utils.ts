@@ -77,7 +77,7 @@ export async function installRx(version: string, filename: string) {
     // https://github.com/actions/toolkit/tree/main/packages/tool-cache
 
     let rxDir = tc.find("rx", version);
-    if (rxDir == null) {
+    if (!rxDir) {
         console.log("Download RX from", filename);
         const rxPathTar = await tc.downloadTool(filename);
         const rxPath = await tc.extractTar(rxPathTar, "radix-cli-setup-folder");
