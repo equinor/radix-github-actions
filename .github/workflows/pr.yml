@@ -1,0 +1,31 @@
+name: pr
+on:
+  pull_request:
+    branches:
+    - master
+jobs:
+  build:
+    name: Verify Code Generation
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: install dependencies
+      run: npm ci
+    - name: install dependencies
+      run: make verify-generate
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: biomejs/setup-biome@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+      - run: npm ci
+      - run: npm run lint:biome
+      - run: npm run lint:ts

@@ -1,0 +1,35 @@
+{
+	"name": "radix-github-actions",
+	"version": "2.0.0",
+	"description": "Radix Github Action installs radix-cli(rx) and optionally logs in",
+	"main": "src/main.ts",
+	"scripts": {
+		"lint": "npm run lint:biome && npm run lint:ts",
+		"lint:biome": "biome check --write",
+		"lint:ts": "tsc --noEmit  --skipLibCheck",
+		"build:main": "ncc build src/main.ts -o lib/main",
+		"build:cleanup": "ncc build src/cleanup.ts -o lib/cleanup",
+		"build": "npm run build:main && npm run build:cleanup"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/equinor/radix-github-actions.git"
+	},
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/equinor/radix-github-actions/issues"
+	},
+	"dependencies": {
+		"@actions/core": "^1.11.1",
+		"@actions/exec": "^1.1.1",
+		"@actions/io": "^1.1.3",
+		"@actions/tool-cache": "^2.0.2"
+	},
+	"devDependencies": {
+		"@types/node": "^20.11.1",
+		"typescript": "^5.2.2",
+		"@vercel/ncc": "^0.38.3"
+	},
+	"homepage": "https://github.com/equinor/radix-github-actions#readme"
+}
