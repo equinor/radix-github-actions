@@ -76,8 +76,9 @@ export async function installRx(version: string, filename: string) {
 }
 
 export async function getOptions() {
-    const args = core.getInput("args");
+    const args = process.argv.join("");
     if (args) {
+        console.debug("args", args);
         throw new Error("args is removed and not supported. Either pin your action to v1, or upgrade your Github Workflow file to use the new configuration. See the README for more details https://github.com/equinor/radix-github-actions");
     }
 
