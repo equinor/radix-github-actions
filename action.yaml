@@ -10,10 +10,10 @@ inputs:
   azure_client_secret:
     description: ' If set use this instead of Github Workload Identity (Github Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). '
     required: false
-  args:
-    deprecationMessage: "`args` is removed. Pin the action to `v1`, or upgrade to v2 arguments."
-    depscription: 'This argument is removed'
-    required: false
+#  args:
+#    deprecationMessage: "`args` is removed. Pin the action to `v1`, or upgrade to v2 arguments."
+#    depscription: 'This argument is removed'
+#    required: false
 
 runs:
   using: 'node20'
