@@ -71,7 +71,6 @@ jobs:
        #--context platform,platform2 or playground
 ```
 
-
 ```yaml
 name: Deploy on Radix # Authenticate with Client Secret
 
