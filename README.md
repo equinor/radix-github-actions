@@ -62,7 +62,7 @@ jobs:
       
     - uses: equinor/radix-github-actions@v2
       with:
-        azure_client_id: "7ef841f8-a263-45ea-8993-683cc6817ae2"
+        azure_client_id: "00000000-0000-0000-0000-000000000000"
         
     - run: rx create job deploy
        --application application-name
@@ -87,7 +87,7 @@ jobs:
       
     - uses: equinor/radix-github-actions@github-login
       with:
-        azure_client_id: "7ef841f8-a263-45ea-8993-683cc6817ae2"
+        azure_client_id: "00000000-0000-0000-0000-000000000000"
         azure_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         
     - run: rx create job deploy
@@ -114,7 +114,7 @@ jobs:
 
          - uses: equinor/radix-github-actions@v2
            with:
-              azure_client_id: "7ef841f8-a263-45ea-8993-683cc6817ae2"
+              azure_client_id: "00000000-0000-0000-0000-000000000000"
 
          - run: rx set environment-secret
                --from-config
