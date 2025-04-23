@@ -4,7 +4,7 @@ build: $(BINS)
 	npm run build
 
 .PHONY: lint
-lint: bootstrap
+lint:
 	npm run lint
 
 .PHONY: generate

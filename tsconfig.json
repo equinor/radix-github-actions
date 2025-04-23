@@ -4,15 +4,10 @@
 		"module": "commonjs",
 		"outDir": "./lib",
 		"rootDir": "./src",
-		"types": [
-			"node"
-		],
+		"types": ["node"],
 		"strict": true,
 		"esModuleInterop": true,
 		"resolveJsonModule": true
 	},
-	"exclude": [
-		"node_modules",
-		"lib"
-	]
+	"exclude": ["node_modules", "lib"]
 }
