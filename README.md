@@ -17,11 +17,11 @@ Arguments:
 
 Note: If `azure_client_id` is not set the action will not authenticate against Radix.
 
-### Github Workload Identity / Federated Credentials
+### GitHub Workload Identity / Federated Credentials
 
 If you are using [GitHub Workload Identity](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-github-workload-identity) to authenticate against Azure, you need to set the `azure_client_id` input parameter and leave the `azure_client_secret`  empty.
 
-When the `azure_client_secret` is blank, we default to signing in using github workload identity.
+When the `azure_client_secret` is blank, we default to signing in using GitHub workload identity.
 
 See the second example below for a complete example.
 
@@ -147,6 +147,10 @@ jobs:
          - name: Print the environment
            run: cat env.txt
 ```
+
+## Development
+
+We must run `npm run build` before commiting to ensure that the `lib` folder is up to date.
 
 ## Release
 
