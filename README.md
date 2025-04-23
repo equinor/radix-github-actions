@@ -31,7 +31,7 @@ See the second example below for a complete example.
 name: Validate Radix Config
 
 on:
-  push: 
+  workflow_dispatch:
      
 jobs:
   build:
@@ -47,8 +47,6 @@ jobs:
 name: Deploy on Radix # Authenticate with Federated Credentials
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 permissions:
@@ -78,8 +76,6 @@ jobs:
 name: Deploy on Radix # Authenticate with Client Secret
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -104,8 +100,6 @@ jobs:
 name: Configure secret # Authenticate with Federated Credentials
 
 on:
-   push:
-      branches: [ "main" ]
    workflow_dispatch:
 
 permissions:
@@ -149,9 +143,10 @@ jobs:
            run: rx get config branch-environment 
                 --from-config
                 --branch ${GITHUB_REF##*/}
+                > env.txt
 
          - name: Print the environment
-           run: echo "${{ steps.getEnvironment.outputs.stdout }}"
+           run: cat env.txt
 ```
 
 ## Release
