@@ -15,7 +15,7 @@ jobs:
     - uses: biomejs/setup-biome@v2
     - name: install dependencies
       run: npm ci
-    - name: install dependencies
+    - name: Verify all files are generated
       run: make verify-generate
 
   lint:
