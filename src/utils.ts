@@ -95,15 +95,10 @@ export async function getOptions() {
         version = await getLatestVersion();
     }
 
-    let skipAuth = false;
-    if (core.getInput("skip_authenticate") !== "") {
-        skipAuth = core.getBooleanInput("skip_authenticate");
-    }
-
     const azureClientId = core.getInput("azure_client_id");
     const azureClientSecret = core.getInput("azure_client_secret");
-    const githubAuth = !skipAuth && !azureClientSecret;
-    const authenticate = Boolean(!skipAuth && !!azureClientId);
+    const githubAuth = !!azureClientId && !azureClientSecret;
+    const authenticate = Boolean(!!azureClientId);
 
     return {version, authenticate, azureClientId, azureClientSecret, githubAuth};
 }

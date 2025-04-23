@@ -10,9 +10,6 @@ inputs:
   azure_client_secret:
     description: ' If set use this instead of Github Workload Identity (Github Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). '
     required: false
-  skip_authenticate:
-    description: 'No authentication will be performed.'
-    required: false
 
 runs:
   using: 'node20'
