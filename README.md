@@ -64,7 +64,7 @@ jobs:
       with:
         azure_client_id: "00000000-0000-0000-0000-000000000000"
         
-    - run: rx create job deploy
+    - run: rx create pipeline-job deploy
        --application application-name
        --environment qa
        --follow # `--follow` will ensure that the action step is followed, and won't continue until step is complete.
@@ -89,7 +89,7 @@ jobs:
         azure_client_id: "00000000-0000-0000-0000-000000000000"
         azure_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         
-    - run: rx create job deploy
+    - run: rx create pipeline-job deploy
        --environment qa
        --follow 
        --from-config # will read information such as application-name, branch mapping etc from your radixconfig.yaml
