@@ -84,7 +84,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       
-    - uses: equinor/radix-github-actions@github-login
+    - uses: equinor/radix-github-actions@v2
       with:
         azure_client_id: "00000000-0000-0000-0000-000000000000"
         azure_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
