@@ -1,15 +1,17 @@
-name: 'Radix Actions'
-description: 'Wrapper for Radix CLI commands'
+name: 'Radix GitHub Actions'
+description: 'Installs Radix CLI (rx) in your runner and optionally login and cleanup afterwards.'
 inputs:
-  github-token:
-    description: 'The GITHUB_TOKEN from the workflow which is executing this Action. Necessary to avoid GitHub API rate limits.'
-  args:
-    description: 'Radix CLI arguments'
-outputs:
-  result:
-    description: 'Result of command'
+  version:
+    description: 'Default is latest. Select the version of the Radix CLI (rx) to install.'
+    required: false
+  azure_client_id:
+    description: 'Unless authenticate is set to false, this is required and must be the Application(client) ID of the Azure Managed Identity, or the Azure App Registration to authenticate with.'
+    required: false
+  azure_client_secret:
+    description: 'If set use this instead of GitHub Workload Identity (GitHub Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). '
+    required: false
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  env:
-    github_token: ${{ inputs.github-token }}
+  using: 'node20'
+  main: 'lib/main/index.js'
+  post: 'lib/cleanup/index.js'

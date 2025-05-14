@@ -6,109 +6,155 @@ This Action for [Radix CLI](https://github.com/equinor/radix-cli) to integrate w
 
 Want to contribute? Read our [contributing guidelines](./CONTRIBUTING.md)
 
-## Outputs
-
-### `result`
-
-The standard output from execution of the `rx` command.
-
 ## Usage
 
-This Action can be used to run any `rx` command. The run make some assumptions:
+This Action will install `rx` into your workflow and optionally authenticate against Radix. 
 
-- An environment variable with the `APP_SERVICE_ACCOUNT_TOKEN` is available to the app, and this token belongs to a user or service principal who has the appropriate privileges for the operations you want to execute in the Radix cluster. [See our documentation](https://www.radix.equinor.com/guides/deploy-only/example-github-action-using-ad-service-principal-access-token.html#example-of-using-ad-service-principal-to-get-access-to-a-radix-application-in-a-github-action) for example on how to acquire such a token in a GitHub Actions workflow. The environment variable can be set on a single step or on the entire flow.
+Arguments:
+- `version`: The version of `rx` to install. If not specified, the latest version will be installed.
+- `azure_client_id`: The Azure client ID of the service principal to use for authentication.
+- `azure_client_secret`: The Azure client secret of the service principal to use for authentication. 
 
-All the examples below pass the `github-token` argument to the Action. Passing this argument is optional. The caveat of *not* passing this argument is that it gets more likely that the workflow fails because the hourly GitHub API rate limit has been exhausted. The Action uses to GitHub API to determine the most recent version of the `rx` CLI.
+Note: If `azure_client_id` is not set the action will not authenticate against Radix.
 
-Examples:
+### GitHub Workload Identity / Federated Credentials
 
-```yaml
-- name: Deploy on Radix
-  uses: equinor/radix-github-actions@v1
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    args: >
-      create job
-      deploy
-      -a application-name
-      -e ${{ steps.getEnvironment.outputs.result }}
-      -f
-```
+If you are using [GitHub Workload Identity](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-github-workload-identity) to authenticate against Azure, you need to set the `azure_client_id` input parameter and leave the `azure_client_secret`  empty.
 
-`-f` will ensure that the action step is followed, and won't continue until step is complete.
+When the `azure_client_secret` is blank, we default to signing in using GitHub workload identity.
+
+See the second example below for a complete example.
+
+### Examples:
 
 ```yaml
-- name: Deploy on Radix
-  uses: equinor/radix-github-actions@v1
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    args: >
-      create job
-      deploy
-      --context playground
-      -a application-name
-      -e ${{ steps.getEnvironment.outputs.result }}
-      -f
-```
+name: Validate Radix Config
 
-`--from-config` will read information such as application-name, branch mapping etc from your radixconfig.yaml
+on:
+  workflow_dispatch:
+     
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-```yaml
-- name: Deploy on radix
-  uses: equinor/radix-github-actions@v1
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    args: >
-      create job
-      deploy
-      --from-config
-      -e ${{ steps.getEnvironment.outputs.result }}
-      -f
-```
-
-`--context playground` will communicate with playground cluster, if your application resides there.
-
-```yaml
-- name: Set component environment secret
-  uses: equinor/radix-github-actions@v1
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    args: >
-      set environment-secret
-      --from-config
-      -e <your environment name>
-      --component <your component name>
-      -s <your secret name>
-      -v '<your secret value>'
+    steps:
+    - uses: actions/checkout@v4
+    - uses: equinor/radix-github-actions@v2
+    - run: rx validate radix-config
 ```
 
 ```yaml
-- name: Get environment from branch mapping in Radix config for repository
-  id: getEnvironment
-  uses: equinor/radix-github-actions@v1
-  with:
-    github-token: ${{ secrets.GITHUB_TOKEN }}
-    args: >
-      get-config branch-environment
-      --from-config
-      -b ${GITHUB_REF##*/}
-- name: Print the environment
-  run: echo "${{ steps.getEnvironment.outputs.result }}"
+name: Deploy on Radix # Authenticate with Federated Credentials
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # required to get a GitHub federated credential
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      
+    - uses: equinor/radix-github-actions@v2
+      with:
+        azure_client_id: "00000000-0000-0000-0000-000000000000"
+        
+    - run: rx create pipeline-job deploy
+       --application application-name
+       --environment qa
+       --follow # `--follow` will ensure that the action step is followed, and won't continue until step is complete.
+       #--context platform,platform2 or playground
 ```
+
+```yaml
+name: Deploy on Radix # Authenticate with Client Secret
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      
+    - uses: equinor/radix-github-actions@v2
+      with:
+        azure_client_id: "00000000-0000-0000-0000-000000000000"
+        azure_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+        
+    - run: rx create pipeline-job deploy
+       --environment qa
+       --follow 
+       --from-config # will read information such as application-name, branch mapping etc from your radixconfig.yaml
+```
+
+```yaml
+name: Configure secret # Authenticate with Federated Credentials
+
+on:
+   workflow_dispatch:
+
+permissions:
+   contents: read
+   id-token: write # required to get a GitHub federated credential
+
+jobs:
+   update-secret:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v4
+
+         - uses: equinor/radix-github-actions@v2
+           with:
+              azure_client_id: "00000000-0000-0000-0000-000000000000"
+
+         - run: rx set environment-secret
+               --from-config
+               --environment prod
+               --component backend
+               --secret <your secret name>
+               --value '<your secret value>'
+```
+
+```yaml
+name: Get environment from branch mapping in Radix config for repository
+
+on:
+   workflow_dispatch:
+
+jobs:
+
+   get-environment:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v4
+
+         - uses: equinor/radix-github-actions@v2
+
+         - id: getEnvironment
+           run: rx get config branch-environment 
+                --from-config
+                --branch ${GITHUB_REF##*/}
+                > env.txt
+
+         - name: Print the environment
+           run: cat env.txt
+```
+
+## Development
+
+We must run `npm run build` before commiting to ensure that the `lib` folder is up to date.
 
 ## Release
 
-Triger `Step 1 - Create pull requets with new version` workflow and set the semver option to the correct version (must be a valid semver with `Major.Minor.Patch` format). 
-The GitHub Workflow modifies the `Dockerfile` with the updated `RX_VERSION` set to your `semver` and create a new pull-request for you to approve.
-You can also run this locally in the repository with `gh workflow run ci-step1.yaml --repository github.com/equinor/radix-github-actions --field semver=1.X.X`
-
-1. Release Radix-Cli 1.11.0
-2. Trigger `Step 1 - Create pull requets with new version` Action 1.11.0
-   - Modifies Dockerfile with the new RX_VERSION.
-   - Creates a new branch and a PR
-3. Testing: run a test-workflow with eg. equinor/radix-github-action@update-rx-version-1-x-x
-4. Manually Merge PR
-5. The workflow `Step 2 - Tag commit with new version` will parse `RX_VERSION` from the `Dockerfile` and create/update the relevant tags.
+Tag a new version in the format `vX.Y.Z` and push it to the repository. 
 
 ## License
 
