@@ -8,12 +8,12 @@ Want to contribute? Read our [contributing guidelines](./CONTRIBUTING.md)
 
 ## Usage
 
-This Action will install `rx` into your workflow and optionally authenticate against Radix. 
+This Action will install `rx` into your workflow and optionally authenticate against Radix.
 
 Arguments:
 - `version`: The version of `rx` to install. If not specified, the latest version will be installed.
 - `azure_client_id`: The Azure client ID of the service principal to use for authentication.
-- `azure_client_secret`: The Azure client secret of the service principal to use for authentication. 
+- `azure_client_secret`: The Azure client secret of the service principal to use for authentication.
 
 Note: If `azure_client_id` is not set the action will not authenticate against Radix.
 
@@ -25,7 +25,33 @@ When the `azure_client_secret` is blank, we default to signing in using GitHub w
 
 See the second example below for a complete example.
 
-### Examples:
+### Warning about pipe character `|`
+When in yaml file of the workflow a step uses `|` , next lines are considered as multiple separate lines (multiple commands), if there is no `|` - multiple lines are joined to one command arguments.
+#### Step example 1
+```shell
+- run: |
+rx create pipeline-job deploy
+--from-config
+-c development
+```
+this will be transformed to multiple separate shell commands
+```shell
+$ rx create pipeline-job deploy
+$    --from-config
+$    -c development
+```
+#### Step example 2:
+```shell
+- run:
+    rx create pipeline-job deploy
+    --from-config
+    -c development
+```
+this will be transformed to the one shell command
+```shell
+rx create pipeline-job deploy --from-config -c development
+```
+### Workflow examples:
 
 ```yaml
 name: Validate Radix Config
@@ -64,7 +90,7 @@ jobs:
       with:
         azure_client_id: "00000000-0000-0000-0000-000000000000"
         
-    - run: rx create pipeline-job deploy
+    - run: rx create job deploy
        --application application-name
        --environment qa
        --follow # `--follow` will ensure that the action step is followed, and won't continue until step is complete.
@@ -84,12 +110,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       
-    - uses: equinor/radix-github-actions@v2
+    - uses: equinor/radix-github-actions@github-login
       with:
         azure_client_id: "00000000-0000-0000-0000-000000000000"
         azure_client_secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         
-    - run: rx create pipeline-job deploy
+    - run: rx create job deploy
        --environment qa
        --follow 
        --from-config # will read information such as application-name, branch mapping etc from your radixconfig.yaml
@@ -154,7 +180,7 @@ We must run `npm run build` before commiting to ensure that the `lib` folder is 
 
 ## Release
 
-Tag a new version in the format `vX.Y.Z` and push it to the repository. 
+Tag a new version in the format `vX.Y.Z` and push it to the repository.
 
 ## License
 
