@@ -25,7 +25,7 @@ When the `azure_client_secret` is blank, we default to signing in using GitHub w
 
 See the second example below for a complete example.
 
-### Warning about pipe character `|`
+### A note about pipe character `|` in yaml
 When in yaml file of the workflow a step uses `|` , next lines are considered as multiple separate lines (multiple commands), if there is no `|` - multiple lines are joined to one command arguments.
 #### Step example 1
 ```shell
