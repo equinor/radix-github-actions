@@ -9,7 +9,6 @@ export async function getUrl(version: string): Promise<string> {
 		throw new Error("version is required");
 	}
 	if (version.startsWith("v")) {
-		// biome-ignore lint/style/noParameterAssign: we want to override the version
 		version = version.substring(1);
 	}
 
