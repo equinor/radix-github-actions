@@ -5,8 +5,10 @@ import * as tc from "@actions/tool-cache";
 import type { OsArch } from "./types";
 
 export async function getUrl(version: string): Promise<string> {
+	if (!version) {
+		throw new Error("version is required");
+	}
 	if (version.startsWith("v")) {
-		// biome-ignore lint/style/noParameterAssign: we want to override the version
 		version = version.substring(1);
 	}
 
@@ -22,10 +24,6 @@ export async function getLatestVersion(): Promise<string> {
 }
 
 function getDistFileName(version: string): string {
-	if (version.startsWith("v")) {
-		// biome-ignore lint/style/noParameterAssign: we want to override the version
-		version = version.substring(1);
-	}
 	const radixArch = getRadixType();
 	const radixOs = getRadixOs();
 
@@ -85,7 +83,7 @@ export async function getOptions() {
 	}
 
 	let version = core.getInput("version");
-	if (version.toLowerCase() === "latest" || version === "") {
+	if (!version || version.toLowerCase() === "latest" || version === "") {
 		version = await getLatestVersion();
 	}
 

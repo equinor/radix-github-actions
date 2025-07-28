@@ -1,6 +1,6 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
 	"files": {
-		"ignore": [".vscode/", "lib", ".idea", ".git"]
+		"includes": ["src/**"]
 	}
 }
