@@ -1,12 +1,10 @@
 
 .PHONY: build
 build: $(BINS)
-	rm -rf ./lib
 	npm run build
 
 .PHONY: lint
 lint:
-	rm -rf ./lib
 	npm run lint
 
 .PHONY: generate
