@@ -16,9 +16,15 @@ export async function getUrl(version: string): Promise<string> {
 	return `https://github.com/equinor/radix-cli/releases/download/v${version}/${filename}`;
 }
 
-export async function getLatestVersion(): Promise<string> {
+export async function getLatestVersion(githubToken: string): Promise<string> {
+	const headers: HeadersInit = {};
+	if (githubToken) {
+		headers["Authorization"] = `Bearer ${githubToken}`;
+	}
+
 	const response = await fetch(
 		"https://api.github.com/repos/equinor/radix-cli/releases/latest",
+		{ headers },
 	);
 	if (response.status === 403 || response.status === 420 || true) {
 		console.error("Rate limit exceeded when fetching latest version");
