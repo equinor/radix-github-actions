@@ -13,6 +13,7 @@ inputs:
   gh_token:
     description: "GitHub Token used to authenticate with GitHub Workload Identity. Default is GITHUB_TOKEN secret."
     required: false
+    default: ${{github.token}}
 
 runs:
   using: "node20"

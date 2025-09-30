@@ -89,8 +89,13 @@ export async function installRx(
 
 	let rxDir = tc.find("rx", version);
 	if (!rxDir) {
+		const headers: HeadersInit = {};
+		if (githubToken) {
+			headers["Authorization"] = `Bearer ${githubToken}`;
+		}
+
 		console.log("Download RX from", filename);
-		const rxPathTar = await tc.downloadTool(filename);
+		const rxPathTar = await tc.downloadTool(filename, undefined, );
 		const rxPath = await tc.extractTar(rxPathTar, "radix-cli-setup-folder");
 		rxDir = await tc.cacheDir(rxPath, "rx", version);
 	} else {
