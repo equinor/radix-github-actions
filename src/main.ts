@@ -3,8 +3,8 @@ import { getOptions, getUrl, installRx } from "./utils";
 
 async function run() {
     const { version, authenticate, azureClientId, azureClientSecret, githubAuth, githubToken } = await getOptions();
-    const rxUrl = await getUrl(version);
 
+    const rxUrl = await getUrl(version);
     console.log("Setup RX with config", {
         authenticate,
         version,
