@@ -17,9 +17,18 @@ export async function getUrl(version: string): Promise<string> {
 }
 
 export async function getLatestVersion(): Promise<string> {
-	const releases = await fetch(
+	const response = await fetch(
 		"https://api.github.com/repos/equinor/radix-cli/releases/latest",
-	).then((res) => res.json());
+	);
+	if (response.status === 403 || response.status === 420 || true) {
+		console.error("Rate limit exceeded when fetching latest version");
+		console.error(
+			`Please use "gh_token: \${{GITHUB_TOKEN}}" in your workflow to increase rate limit.`,
+		);
+		process.exit(1);
+	}
+
+	const releases = await response.json();
 	return releases.tag_name;
 }
 
@@ -58,7 +67,11 @@ function getRadixType() {
 	}
 }
 
-export async function installRx(version: string, filename: string) {
+export async function installRx(
+	version: string,
+	filename: string,
+	githubToken: string,
+): Promise<void> {
 	// https://github.com/actions/toolkit/tree/main/packages/tool-cache
 
 	let rxDir = tc.find("rx", version);
@@ -87,6 +100,7 @@ export async function getOptions() {
 		version = await getLatestVersion();
 	}
 
+	const githubToken = core.getInput("gh_token");
 	const azureClientId = core.getInput("azure_client_id");
 	const azureClientSecret = core.getInput("azure_client_secret");
 	const githubAuth = !!azureClientId && !azureClientSecret;
@@ -98,5 +112,6 @@ export async function getOptions() {
 		azureClientId,
 		azureClientSecret,
 		githubAuth,
+		githubToken,
 	};
 }

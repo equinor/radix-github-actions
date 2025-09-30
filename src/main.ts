@@ -2,17 +2,13 @@ import * as exec from "@actions/exec";
 import { getOptions, getUrl, installRx } from "./utils";
 
 async function run() {
-	const envVars = Object.keys(process.env).filter((k) =>
-		k.toLowerCase().startsWith("github"),
-	);
-	console.log("Environment variables:", envVars);
-
 	const {
 		version,
 		authenticate,
 		azureClientId,
 		azureClientSecret,
 		githubAuth,
+		githubToken,
 	} = await getOptions();
 	const rxUrl = await getUrl(version);
 
@@ -23,8 +19,9 @@ async function run() {
 		azureClientId,
 		githubAuth,
 		azureClientSecret: azureClientSecret ? "<REDACTED>" : "",
+		githubToken: githubToken ? "<REDACTED>" : "",
 	});
-	await installRx(version, rxUrl);
+	await installRx(version, rxUrl, githubToken);
 
 	if (authenticate) {
 		if (azureClientSecret) {
