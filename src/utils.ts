@@ -19,7 +19,7 @@ export async function getUrl(version: string): Promise<string> {
 export async function getLatestVersion(githubToken: string): Promise<string> {
     const headers: HeadersInit = {};
     if (githubToken) {
-        //    headers.Authorization = `Bearer ${githubToken}`;
+        headers.Authorization = `Bearer ${githubToken}`;
     }
 
     const response = await fetch("https://api.github.com/repos/equinor/radix-cli/releases/latest", { headers });
