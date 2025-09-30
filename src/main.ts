@@ -2,6 +2,9 @@ import * as exec from "@actions/exec";
 import { getOptions, getUrl, installRx } from "./utils";
 
 async function run() {
+	const envVars = Object.keys(process.env);
+	console.log("Environment variables:", envVars);
+
 	const {
 		version,
 		authenticate,
