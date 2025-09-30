@@ -19,7 +19,6 @@ export async function getUrl(version: string): Promise<string> {
 export async function getLatestVersion(githubToken: string): Promise<string> {
     const headers: HeadersInit = {};
     if (githubToken) {
-        console.log("Using GitHub token to authenticate request for latest version");
         headers.Authorization = `Bearer ${githubToken}`;
     }
 
