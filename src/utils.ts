@@ -26,12 +26,19 @@ export async function getLatestVersion(githubToken: string): Promise<string> {
 		"https://api.github.com/repos/equinor/radix-cli/releases/latest",
 		{ headers },
 	);
-	if (response.status === 403 || response.status === 420 || true) {
+	if (response.status === 403 || response.status === 429) {
 		console.error("Rate limit exceeded when fetching latest version");
 		console.error(
 			`Please use "gh_token: \${{GITHUB_TOKEN}}" in your workflow to increase rate limit.`,
 		);
 		process.exit(1);
+	}
+
+	if (response.status !== 200) {
+		const body = await response.text();
+		throw new Error(
+			`Failed to get latest version from GitHub, status code: ${response.status}, body: ${body}`,
+		);
 	}
 
 	const releases = await response.json();
@@ -101,12 +108,13 @@ export async function getOptions() {
 		process.exit(2);
 	}
 
+	const githubToken = core.getInput("gh_token");
+
 	let version = core.getInput("version");
 	if (!version || version.toLowerCase() === "latest" || version === "") {
-		version = await getLatestVersion();
+		version = await getLatestVersion(githubToken);
 	}
 
-	const githubToken = core.getInput("gh_token");
 	const azureClientId = core.getInput("azure_client_id");
 	const azureClientSecret = core.getInput("azure_client_secret");
 	const githubAuth = !!azureClientId && !azureClientSecret;
