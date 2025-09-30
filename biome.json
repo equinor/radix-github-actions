@@ -1,6 +1,13 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
-	"files": {
-		"includes": ["src/**"]
-	}
+    "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
+    "files": {
+        "includes": ["src/**"]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120,
+        "formatWithErrors": true
+    }
 }

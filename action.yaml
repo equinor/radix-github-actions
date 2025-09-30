@@ -1,17 +1,21 @@
-name: 'Radix GitHub Actions'
-description: 'Installs Radix CLI (rx) in your runner and optionally login and cleanup afterwards.'
+name: "Radix GitHub Actions"
+description: "Installs Radix CLI (rx) in your runner and optionally login and cleanup afterwards."
 inputs:
   version:
-    description: 'Default is latest. Select the version of the Radix CLI (rx) to install.'
+    description: "Default is latest. Select the version of the Radix CLI (rx) to install."
     required: false
   azure_client_id:
-    description: 'Unless authenticate is set to false, this is required and must be the Application(client) ID of the Azure Managed Identity, or the Azure App Registration to authenticate with.'
+    description: "Unless authenticate is set to false, this is required and must be the Application(client) ID of the Azure Managed Identity, or the Azure App Registration to authenticate with."
     required: false
   azure_client_secret:
-    description: 'If set use this instead of GitHub Workload Identity (GitHub Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). '
+    description: "If set use this instead of GitHub Workload Identity (GitHub Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). "
     required: false
+  gh_token:
+    description: "GitHub Token used to authenticate with GitHub Workload Identity. Default is GITHUB_TOKEN."
+    required: false
+    default: ${{github.token}}
 
 runs:
-  using: 'node20'
-  main: 'lib/main/index.js'
-  post: 'lib/cleanup/index.js'
+  using: "node20"
+  main: "lib/main/index.js"
+  post: "lib/cleanup/index.js"
