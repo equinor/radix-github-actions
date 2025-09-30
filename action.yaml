@@ -11,7 +11,7 @@ inputs:
     description: "If set use this instead of GitHub Workload Identity (GitHub Workload Identity must be configured as a federated credential on your App Registration or Managed Identity to work). "
     required: false
   gh_token:
-    description: "GitHub Token used to authenticate with GitHub Workload Identity. Default is GITHUB_TOKEN secret."
+    description: "GitHub Token used to authenticate with GitHub Workload Identity. Default is GITHUB_TOKEN."
     required: false
     default: ${{github.token}}
 
