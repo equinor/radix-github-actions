@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: radix-github-actions
+  title: Radix GitHub Actions
+  description: "Action for Radix CLI to integrate with the Radix platform from a GitHub Action workflow"
+  annotations:
+    github.com/project-slug: equinor/radix-github-actions
+spec:
+  type: service
+  lifecycle: production
+  owner: team-radix
+  system: system:default/Radix
+  dependsOn:
+    - component:default/radix-cli  
