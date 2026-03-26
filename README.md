@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - uses: equinor/radix-github-actions@v2
     - run: rx validate radix-config
 ```
@@ -84,7 +84,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       
     - uses: equinor/radix-github-actions@v2
       with:
@@ -108,7 +108,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       
     - uses: equinor/radix-github-actions@v2
       with:
@@ -135,7 +135,7 @@ jobs:
    update-secret:
       runs-on: ubuntu-latest
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@v6
 
          - uses: equinor/radix-github-actions@v2
            with:
@@ -160,7 +160,7 @@ jobs:
    get-environment:
       runs-on: ubuntu-latest
       steps:
-         - uses: actions/checkout@v4
+         - uses: actions/checkout@v6
 
          - uses: equinor/radix-github-actions@v2
 
