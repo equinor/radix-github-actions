@@ -16,6 +16,6 @@ inputs:
     default: ${{github.token}}
 
 runs:
-  using: "node20"
-  main: "lib/main/index.js"
-  post: "lib/cleanup/index.js"
+  using: "node24"
+  main: "lib/main.js"
+  post: "lib/cleanup.js"
