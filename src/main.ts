@@ -5,7 +5,7 @@ async function run() {
     const { version, authenticate, azureClientId, azureClientSecret, githubAuth, githubToken } = await getOptions();
 
     const rxUrl = await getUrl(version);
-    console.log("Setup RX with config", {
+    console.log("Setup RX with config (test)", {
         authenticate,
         version,
         rxUrl,
