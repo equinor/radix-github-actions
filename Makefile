@@ -10,9 +10,17 @@ lint:
 .PHONY: generate
 generate: bootstrap lint build
 
-.PHONY: verify-generate
-verify-generate: generate
+.PHONY: clean
+clean:
+	rm -rf lib
+
+.PHONY: verify
+verify:
 	git diff --exit-code
+
+# clean first so a skipped build shows up as deleted files rather than a false pass
+.PHONY: verify-generate
+verify-generate: clean generate verify
 
 HAS_BIOME := $(shell command -v biome;)
 
